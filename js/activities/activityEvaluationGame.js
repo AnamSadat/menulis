@@ -30,6 +30,16 @@ export function init() {
 
   // Start first task
   startTask();
+
+  // Add next button for learning flow
+  ui.addControlButton("Lanjut ▶", () => {
+    if (window.app && window.app.nextActivity) {
+      window.app.nextActivity();
+    }
+  });
+
+  // Clear and prepare canvas
+  drawing.clear();
 }
 
 function generateTasks() {

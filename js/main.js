@@ -330,6 +330,54 @@ if (document.readyState === "loading") {
   init();
 }
 
+// LEARNING FLOW SYSTEM
+const activityOrder = [
+  "freeDraw",
+  "controlledDraw",
+  "connectDots",
+  "connectRandomDots",
+  "straightLines",
+  "curvedLines",
+  "simplePatterns",
+  "boldLetters",
+  "evaluationGame",
+];
+
+// Get current activity index
+function getCurrentActivityIndex() {
+  return activityOrder.indexOf(currentActivity);
+}
+
+// Go to next activity in learning flow
+function nextActivity() {
+  const currentIndex = getCurrentActivityIndex();
+  if (currentIndex < activityOrder.length - 1) {
+    const nextActivityName = activityOrder[currentIndex + 1];
+    startActivity(nextActivityName);
+    sound.playSuccess();
+  } else {
+    // Completed all activities!
+    ui.showSuccess(
+      "Selamat! Kamu telah menyelesaikan semua kegiatan! 🎉",
+      3000
+    );
+    sound.playComplete();
+    setTimeout(() => {
+      ui.showScreen("menu");
+    }, 3000);
+  }
+}
+
+// Go to previous activity
+function previousActivity() {
+  const currentIndex = getCurrentActivityIndex();
+  if (currentIndex > 0) {
+    const prevActivityName = activityOrder[currentIndex - 1];
+    startActivity(prevActivityName);
+    sound.playClick();
+  }
+}
+
 // Export for debugging
 window.app = {
   state,
@@ -338,4 +386,7 @@ window.app = {
   drawing,
   activities,
   startActivity,
+  nextActivity,
+  previousActivity,
+  activityOrder,
 };

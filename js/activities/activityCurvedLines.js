@@ -36,6 +36,16 @@ export function init() {
 
   // Initialize with current mode
   selectMode(currentMode);
+
+  // Add next button for learning flow
+  ui.addControlButton("Lanjut ▶", () => {
+    if (window.app && window.app.nextActivity) {
+      window.app.nextActivity();
+    }
+  });
+
+  // Clear and prepare canvas
+  drawing.clear();
 }
 
 function selectMode(modeKey) {

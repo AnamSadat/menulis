@@ -26,10 +26,12 @@
   padding: 0 var(--spacing-md);
 }
 
-/* Welcome Screen Layout */
+/* Welcome Screen Layout - FIXED: Perfect Centering */
 #welcomeScreen {
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
+  padding: var(--spacing-lg);
 }
 
 .welcome-content {
@@ -40,6 +42,7 @@
   padding: var(--spacing-2xl);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xl);
+  margin: auto;
 }
 
 .logo-animation {
@@ -146,6 +149,7 @@
 #activityScreen {
   flex-direction: column;
   padding: 0;
+  min-height: 100vh;
 }
 
 .activity-header {
@@ -174,6 +178,51 @@
   font-size: var(--font-size-sm);
   color: var(--gray-600);
   font-weight: 500;
+}
+
+/* Progress Indicator */
+.progress-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.progress-step {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--gray-300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--gray-600);
+  transition: all var(--transition-base);
+}
+
+.progress-step.completed {
+  background: var(--success);
+  color: var(--white);
+}
+
+.progress-step.active {
+  background: var(--primary-color);
+  color: var(--white);
+  transform: scale(1.2);
+}
+
+.progress-line {
+  flex: 1;
+  height: 2px;
+  background: var(--gray-300);
+}
+
+.progress-line.completed {
+  background: var(--success);
 }
 
 /* Toolbar */
@@ -205,22 +254,22 @@
   gap: var(--spacing-sm);
 }
 
-/* Activity Content */
+/* Activity Content - FIXED: Full canvas area */
 .activity-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-xl);
-  overflow: auto;
+  padding: var(--spacing-md);
+  overflow: hidden;
 }
 
 .instructions {
   background: var(--accent-blue);
   color: var(--white);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-md);
   border-radius: var(--radius-md);
-  margin-bottom: var(--spacing-lg);
-  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-base);
   text-align: center;
   box-shadow: var(--shadow-sm);
 }
@@ -228,11 +277,12 @@
 .activity-controls {
   display: flex;
   gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
   flex-wrap: wrap;
   justify-content: center;
 }
 
+/* Canvas Container - FIXED: Full area canvas */
 .canvas-container {
   flex: 1;
   display: flex;
@@ -241,16 +291,19 @@
   background: var(--white);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
-  padding: var(--spacing-lg);
-  min-height: 400px;
+  padding: var(--spacing-md);
+  min-height: 500px;
+  overflow: hidden;
 }
 
 #drawingCanvas {
-  border: 2px solid var(--gray-200);
+  border: 4px solid var(--gray-400);
   border-radius: var(--radius-md);
   cursor: crosshair;
   touch-action: none;
   background: var(--bg-canvas);
+  max-width: 100%;
+  max-height: 100%;
 }
 
 /* Responsive Layout */
@@ -262,6 +315,10 @@
 
   .toolbar {
     gap: var(--spacing-md);
+  }
+
+  .canvas-container {
+    min-height: 400px;
   }
 }
 
@@ -301,12 +358,23 @@
   }
 
   .activity-content {
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm);
   }
 
   .canvas-container {
-    min-height: 300px;
-    padding: var(--spacing-md);
+    min-height: 350px;
+    padding: var(--spacing-sm);
+  }
+
+  .progress-indicator {
+    padding: var(--spacing-sm);
+    overflow-x: auto;
+  }
+
+  .progress-step {
+    width: 24px;
+    height: 24px;
+    font-size: var(--font-size-xs);
   }
 }
 
@@ -336,5 +404,9 @@
   .size-options,
   .color-options {
     flex: 1;
+  }
+
+  .canvas-container {
+    min-height: 300px;
   }
 }

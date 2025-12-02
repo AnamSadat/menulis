@@ -37,6 +37,16 @@ export function init() {
 
   // Initialize with current pattern
   selectPattern(currentPattern);
+
+  // Add next button for learning flow
+  ui.addControlButton("Lanjut ▶", () => {
+    if (window.app && window.app.nextActivity) {
+      window.app.nextActivity();
+    }
+  });
+
+  // Clear and prepare canvas
+  drawing.clear();
 }
 
 function selectPattern(patternKey) {

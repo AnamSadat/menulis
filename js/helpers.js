@@ -226,8 +226,6 @@ export function formatTime(seconds) {
 // Get canvas coordinates from event
 export function getCanvasCoordinates(canvas, event) {
   const rect = canvas.getBoundingClientRect();
-  const scaleX = canvas.width / rect.width;
-  const scaleY = canvas.height / rect.height;
 
   let clientX, clientY;
 
@@ -239,8 +237,9 @@ export function getCanvasCoordinates(canvas, event) {
     clientY = event.clientY;
   }
 
+  // Simple coordinate mapping since canvas size = display size
   return {
-    x: (clientX - rect.left) * scaleX,
-    y: (clientY - rect.top) * scaleY,
+    x: clientX - rect.left,
+    y: clientY - rect.top,
   };
 }

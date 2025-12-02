@@ -23,6 +23,16 @@ export function init() {
 
   // Draw current letter
   drawLetter();
+
+  // Add next button for learning flow
+  ui.addControlButton("Lanjut ▶", () => {
+    if (window.app && window.app.nextActivity) {
+      window.app.nextActivity();
+    }
+  });
+
+  // Clear and prepare canvas
+  drawing.clear();
 }
 
 function previousLetter() {

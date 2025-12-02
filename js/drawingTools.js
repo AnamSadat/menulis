@@ -43,29 +43,36 @@ class DrawingTools {
     this.ctx.lineJoin = "round";
   }
 
-  // Resize canvas to fit container
+  // Resize canvas to fit container - FIXED: Full area canvas
   resizeCanvas() {
     if (!this.canvas) return;
 
     const container = this.canvas.parentElement;
     const rect = container.getBoundingClientRect();
 
-    // Set display size
-    const size = Math.min(rect.width - 40, rect.height - 40, 800);
-    this.canvas.style.width = size + "px";
-    this.canvas.style.height = size + "px";
+    // Pakai ukuran maksimal yang muat di container (square)
+    const size = Math.min(rect.width, rect.height);
 
-    // Set actual size in memory (scaled for retina displays)
-    const scale = window.devicePixelRatio || 1;
-    this.canvas.width = size * scale;
-    this.canvas.height = size * scale;
+    // Kalau container belum kebaca (misal 0), kasih default
+    const finalSize = size > 0 ? size : 800;
 
-    // Scale context to match
-    this.ctx.scale(scale, scale);
+    // Set display size (CSS)
+    this.canvas.style.width = finalSize + "px";
+    this.canvas.style.height = finalSize + "px";
 
-    // Reapply settings
+    // Set size internal (resolusi canvas) - NO SCALING for simpler coordinate mapping
+    this.canvas.width = finalSize;
+    this.canvas.height = finalSize;
+
+    // Reset context without scaling
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+
     this.ctx.lineCap = "round";
     this.ctx.lineJoin = "round";
+
+    // Background putih
+    this.ctx.fillStyle = "#FEFEFE";
+    this.ctx.fillRect(0, 0, finalSize, finalSize);
   }
 
   // Setup event listeners for drawing
@@ -78,11 +85,19 @@ class DrawingTools {
     this.canvas.addEventListener("mouseup", this.stopDrawing.bind(this));
     this.canvas.addEventListener("mouseout", this.stopDrawing.bind(this));
 
-    // Touch events
-    this.canvas.addEventListener("touchstart", this.startDrawing.bind(this));
-    this.canvas.addEventListener("touchmove", this.draw.bind(this));
-    this.canvas.addEventListener("touchend", this.stopDrawing.bind(this));
-    this.canvas.addEventListener("touchcancel", this.stopDrawing.bind(this));
+    // Touch events - FIXED: Better touch support
+    this.canvas.addEventListener("touchstart", this.startDrawing.bind(this), {
+      passive: false,
+    });
+    this.canvas.addEventListener("touchmove", this.draw.bind(this), {
+      passive: false,
+    });
+    this.canvas.addEventListener("touchend", this.stopDrawing.bind(this), {
+      passive: false,
+    });
+    this.canvas.addEventListener("touchcancel", this.stopDrawing.bind(this), {
+      passive: false,
+    });
   }
 
   // Start drawing
