@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ruang Latihan Menulis - Belajar Menulis & Menggambar</title>
+    <meta
+      name="description"
+      content="Web interaktif untuk latihan menulis dan menggambar dengan efek suara dan animasi yang menyenangkan"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fredoka:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+  </head>
+  <body>
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen" class="screen active">
+      <div class="container">
+        <div class="welcome-content">
+          <div class="logo-animation">
+            <div class="logo-circle"></div>
+            <div class="logo-pencil"></div>
+          </div>
+          <h1 class="main-title">Ruang Latihan Menulis</h1>
+          <p class="subtitle">
+            Belajar menulis dan menggambar dengan cara yang menyenangkan!
+          </p>
+
+          <div class="welcome-form">
+            <div class="input-group">
+              <label for="userName">Siapa nama kamu?</label>
+              <input
+                type="text"
+                id="userName"
+                placeholder="Masukkan nama kamu..."
+                autocomplete="off"
+              />
+            </div>
+            <button id="startBtn" class="btn btn-primary btn-large">
+              <span>Mulai Belajar</span>
+              <svg
+                class="btn-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="welcome-actions">
+            <button id="settingsBtn" class="btn btn-secondary">
+              <svg
+                class="btn-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path d="M12 1v6m0 6v6M1 12h6m6 0h6" />
+              </svg>
+              <span>Pengaturan</span>
+            </button>
+            <button id="guideBtn" class="btn btn-secondary">
+              <svg
+                class="btn-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3m.08 4h.01" />
+              </svg>
+              <span>Panduan</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu Screen -->
+    <div id="menuScreen" class="screen">
+      <div class="container">
+        <div class="menu-header">
+          <h2 class="greeting">Halo, <span id="userGreeting">Teman</span>!</h2>
+          <p class="menu-subtitle">Pilih kegiatan yang ingin kamu lakukan:</p>
+        </div>
+
+        <div class="activities-grid">
+          <div class="activity-card" data-activity="freeDraw">
+            <div class="card-icon">✏️</div>
+            <h3>Coret-coret</h3>
+            <p>Menggambar bebas sesuka hati</p>
+          </div>
+
+          <div class="activity-card" data-activity="controlledDraw">
+            <div class="card-icon">📦</div>
+            <h3>Coretan Terkontrol</h3>
+            <p>Menggambar di dalam kotak</p>
+          </div>
+
+          <div class="activity-card" data-activity="connectDots">
+            <div class="card-icon">⭐</div>
+            <h3>Menghubungkan Titik</h3>
+            <p>Hubungkan titik jadi bentuk</p>
+          </div>
+
+          <div class="activity-card" data-activity="connectRandomDots">
+            <div class="card-icon">🎲</div>
+            <h3>Titik Acak</h3>
+            <p>Hubungkan titik secara urut</p>
+          </div>
+
+          <div class="activity-card" data-activity="straightLines">
+            <div class="card-icon">📏</div>
+            <h3>Garis Lurus</h3>
+            <p>Latihan membuat garis lurus</p>
+          </div>
+
+          <div class="activity-card" data-activity="curvedLines">
+            <div class="card-icon">〰️</div>
+            <h3>Garis Melengkung</h3>
+            <p>Latihan garis lengkung</p>
+          </div>
+
+          <div class="activity-card" data-activity="simplePatterns">
+            <div class="card-icon">🔷</div>
+            <h3>Pola Sederhana</h3>
+            <p>Menggambar pola berulang</p>
+          </div>
+
+          <div class="activity-card" data-activity="boldLetters">
+            <div class="card-icon">🔤</div>
+            <h3>Menebalkan Huruf</h3>
+            <p>Latihan menulis huruf A-Z</p>
+          </div>
+
+          <div class="activity-card" data-activity="evaluationGame">
+            <div class="card-icon">🎮</div>
+            <h3>Game Evaluasi</h3>
+            <p>Uji kemampuan menulismu</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity Screen -->
+    <div id="activityScreen" class="screen">
+      <div class="activity-header">
+        <button id="backToMenuBtn" class="btn btn-back">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          <span>Kembali</span>
+        </button>
+        <h2 id="activityTitle">Kegiatan</h2>
+        <div class="activity-mode-indicator" id="modeIndicator"></div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <div class="toolbar-group">
+          <label>Ukuran:</label>
+          <div class="size-options">
+            <button class="size-btn active" data-size="small">
+              <span class="size-dot size-small"></span>
+            </button>
+            <button class="size-btn" data-size="medium">
+              <span class="size-dot size-medium"></span>
+            </button>
+            <button class="size-btn" data-size="large">
+              <span class="size-dot size-large"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="toolbar-group">
+          <label>Warna:</label>
+          <div class="color-options">
+            <button
+              class="color-btn active"
+              data-color="#000000"
+              style="background: #000000"
+            ></button>
+            <button
+              class="color-btn"
+              data-color="#FF4757"
+              style="background: #ff4757"
+            ></button>
+            <button
+              class="color-btn"
+              data-color="#5352ED"
+              style="background: #5352ed"
+            ></button>
+            <button
+              class="color-btn"
+              data-color="#2ED573"
+              style="background: #2ed573"
+            ></button>
+            <button
+              class="color-btn"
+              data-color="#FFA502"
+              style="background: #ffa502"
+            ></button>
+            <button
+              class="color-btn"
+              data-color="#A55EEA"
+              style="background: #a55eea"
+            ></button>
+          </div>
+        </div>
+
+        <div class="toolbar-group">
+          <button id="eraserBtn" class="btn btn-tool">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M20 20H7L3 16l9-9 9 9-1 4z" />
+            </svg>
+            <span>Penghapus</span>
+          </button>
+          <button id="resetBtn" class="btn btn-tool">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+              <path d="M21 3v5h-5" />
+            </svg>
+            <span>Reset</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Activity Content Area -->
+      <div class="activity-content">
+        <div id="activityInstructions" class="instructions"></div>
+        <div id="activityControls" class="activity-controls"></div>
+        <div class="canvas-container">
+          <canvas id="drawingCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Pengaturan</h3>
+          <button class="modal-close" data-modal="settingsModal">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="setting-item">
+            <label for="soundToggle">Suara</label>
+            <div class="toggle-switch">
+              <input type="checkbox" id="soundToggle" checked />
+              <span class="toggle-slider"></span>
+            </div>
+          </div>
+
+          <div class="setting-item">
+            <label for="volumeSlider">Volume</label>
+            <input
+              type="range"
+              id="volumeSlider"
+              min="0"
+              max="100"
+              value="70"
+              class="volume-slider"
+            />
+            <span id="volumeValue">70%</span>
+          </div>
+
+          <div class="setting-item">
+            <label for="languageSelect">Bahasa</label>
+            <select id="languageSelect" class="select-input">
+              <option value="id">Bahasa Indonesia</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-modal="settingsModal">
+            Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guide Modal -->
+    <div id="guideModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Panduan Penggunaan</h3>
+          <button class="modal-close" data-modal="guideModal">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="guide-section">
+            <h4>🎯 Cara Memulai</h4>
+            <p>
+              Masukkan nama kamu di halaman awal, lalu klik "Mulai Belajar"
+              untuk melihat menu kegiatan.
+            </p>
+          </div>
+
+          <div class="guide-section">
+            <h4>🎨 Memilih Kegiatan</h4>
+            <p>
+              Pilih salah satu dari 9 kegiatan yang tersedia dengan mengklik
+              kartu kegiatan.
+            </p>
+          </div>
+
+          <div class="guide-section">
+            <h4>✏️ Menggunakan Marker</h4>
+            <ul>
+              <li>
+                <strong>Ukuran:</strong> Pilih ukuran marker (kecil, sedang,
+                besar)
+              </li>
+              <li><strong>Warna:</strong> Pilih warna yang kamu suka</li>
+              <li>
+                <strong>Penghapus:</strong> Klik tombol penghapus untuk
+                menghapus coretan
+              </li>
+              <li>
+                <strong>Reset:</strong> Hapus semua coretan dan mulai dari awal
+              </li>
+            </ul>
+          </div>
+
+          <div class="guide-section">
+            <h4>🔊 Suara & Animasi</h4>
+            <p>
+              Setiap kali kamu berhasil menyelesaikan tugas, akan ada suara dan
+              animasi yang muncul. Kamu bisa mengatur volume di menu Pengaturan.
+            </p>
+          </div>
+
+          <div class="guide-section">
+            <h4>↩️ Kembali ke Menu</h4>
+            <p>
+              Klik tombol "Kembali" di pojok kiri atas untuk kembali ke menu
+              kegiatan.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="success-message">
+      <div class="success-content">
+        <div class="success-icon">🎉</div>
+        <p id="successText">Hebat!</p>
+      </div>
+    </div>
+
+    <!-- Confirmation Dialog -->
+    <div id="confirmDialog" class="modal">
+      <div class="modal-content modal-small">
+        <div class="modal-body">
+          <p id="confirmText">
+            Apakah kamu yakin ingin menghapus semua coretan?
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button id="confirmYes" class="btn btn-primary">Ya</button>
+          <button id="confirmNo" class="btn btn-secondary">Tidak</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript Modules -->
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
