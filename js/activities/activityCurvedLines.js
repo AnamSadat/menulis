@@ -34,9 +34,6 @@ export function init() {
   // Add check button
   ui.addControlButton("Cek Hasil", checkResult);
 
-  // Initialize with current mode
-  selectMode(currentMode);
-
   // Add next button for learning flow
   ui.addControlButton("Lanjut ▶", () => {
     if (window.app && window.app.nextActivity) {
@@ -44,8 +41,8 @@ export function init() {
     }
   });
 
-  // Clear and prepare canvas
-  drawing.clear();
+  // Initialize with current mode (this will clear and draw guide curves)
+  selectMode(currentMode);
 }
 
 function selectMode(modeKey) {

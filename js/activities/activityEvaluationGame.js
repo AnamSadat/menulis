@@ -30,16 +30,6 @@ export function init() {
 
   // Start first task
   startTask();
-
-  // Add next button for learning flow
-  ui.addControlButton("Lanjut ▶", () => {
-    if (window.app && window.app.nextActivity) {
-      window.app.nextActivity();
-    }
-  });
-
-  // Clear and prepare canvas
-  drawing.clear();
 }
 
 function generateTasks() {
@@ -171,30 +161,41 @@ function setupDrawCirclesTask() {
 }
 
 function startTimer(seconds) {
+  // Clear any existing timer first to prevent multiple timers running
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+
   let remaining = seconds;
 
   const updateTimer = () => {
     ui.updateModeIndicator(`⏱️ ${remaining}s`);
-    remaining--;
 
-    if (remaining < 0) {
+    if (remaining <= 0) {
       clearInterval(timerInterval);
+      timerInterval = null;
       sound.playError();
       ui.showSuccess("Waktu habis!", 2000);
       setTimeout(() => {
         currentTask++;
         startTask();
       }, 2500);
+      return; // Stop execution here
     }
+
+    remaining--;
   };
 
-  updateTimer();
+  updateTimer(); // Show initial time
   timerInterval = setInterval(updateTimer, 1000);
 }
 
 function completeTask() {
+  // Clear timer first
   if (timerInterval) {
     clearInterval(timerInterval);
+    timerInterval = null;
   }
 
   const task = tasks[currentTask];
@@ -250,6 +251,11 @@ function showFinalScore() {
   ui.updateInstructions("Selamat! Kamu telah menyelesaikan semua tugas!");
   ui.clearActivityControls();
   ui.addControlButton("Main Lagi", () => {
+    // Clear any existing timer
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
     score = 0;
     currentTask = 0;
     startTask();

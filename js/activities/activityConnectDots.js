@@ -47,7 +47,7 @@ export function init() {
     }
   });
 
-  // Initialize with current shape
+  // Initialize with current shape (this will clear and draw)
   selectShape(currentShape);
 }
 

@@ -41,11 +41,10 @@ export function init() {
     }
   });
 
-  // Initialize with current mode
-  selectMode(currentMode);
-
   // Clear and prepare canvas
   drawing.clear();
+  // Initialize with current mode
+  selectMode(currentMode);
 }
 
 function selectMode(modeKey) {

@@ -35,9 +35,6 @@ export function init() {
   // Add check button
   ui.addControlButton("Cek Hasil", checkResult);
 
-  // Initialize with current pattern
-  selectPattern(currentPattern);
-
   // Add next button for learning flow
   ui.addControlButton("Lanjut ▶", () => {
     if (window.app && window.app.nextActivity) {
@@ -45,8 +42,8 @@ export function init() {
     }
   });
 
-  // Clear and prepare canvas
-  drawing.clear();
+  // Initialize with current pattern (this will clear and draw pattern guide)
+  selectPattern(currentPattern);
 }
 
 function selectPattern(patternKey) {

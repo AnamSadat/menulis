@@ -21,9 +21,6 @@ export function init() {
   ui.addControlButton("Berikutnya ▶", nextLetter);
   ui.addControlButton("Cek Hasil", checkResult);
 
-  // Draw current letter
-  drawLetter();
-
   // Add next button for learning flow
   ui.addControlButton("Lanjut ▶", () => {
     if (window.app && window.app.nextActivity) {
@@ -31,8 +28,9 @@ export function init() {
     }
   });
 
-  // Clear and prepare canvas
+  // Draw current letter (this will clear and draw)
   drawing.clear();
+  drawLetter();
 }
 
 function previousLetter() {
