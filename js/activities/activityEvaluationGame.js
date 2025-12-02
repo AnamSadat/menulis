@@ -7,6 +7,7 @@ import drawing from "../drawingTools.js";
 import ui from "../uiManager.js";
 import sound from "../soundManager.js";
 import state from "../stateManager.js";
+import dotsManager from "../dotsManager.js";
 import { generateStarDots, distance } from "../helpers.js";
 
 let score = 0;
@@ -99,18 +100,17 @@ function setupConnectDotsTask() {
   const size = Math.min(dims.displayWidth, dims.displayHeight);
   const dots = generateStarDots(size / 2, size / 2, size * 0.3);
 
-  const ctx = drawing.getContext();
-  dots.forEach((dot) => {
-    ctx.beginPath();
-    ctx.arc(dot.x, dot.y, 8, 0, Math.PI * 2);
-    ctx.fillStyle = "#6C5CE7";
-    ctx.fill();
+  // Use dotsManager for interactive dot connection
+  dotsManager.init(drawing.getCanvas(), drawing.getContext());
+  dotsManager.setDots(dots);
+  dotsManager.drawDots();
 
-    ctx.fillStyle = "#FFFFFF";
-    ctx.font = "bold 12px Poppins";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(dot.number, dot.x, dot.y);
+  // Setup click handler - auto complete task when all dots connected
+  dotsManager.setupClickHandler(() => {
+    // All dots connected, complete the task automatically
+    setTimeout(() => {
+      completeTask();
+    }, 500);
   });
 }
 
@@ -267,5 +267,7 @@ function showFinalScore() {
 export function cleanup() {
   if (timerInterval) {
     clearInterval(timerInterval);
+    timerInterval = null;
   }
+  dotsManager.cleanup();
 }
